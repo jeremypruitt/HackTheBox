@@ -21,3 +21,12 @@ $ nc $TARGET_HOST $TARGET_PORT
 $ curl $TARGET_HOST/$URI_PATH
 # Notice the TCP handshake, followed by HTTP push (P) and chunked receipt of data
 ```
+
+#### Restart tcpdump to show ASCII or HEX data
+```sh
+# To show ASCII output for received packets, use `-A`:
+$ tcpdump -i $INTERFACE -A
+
+# To show ASCII& HEX output for received packets, use `-XX`:
+$ tcpdump -i $INTERFACE -XX
+```
